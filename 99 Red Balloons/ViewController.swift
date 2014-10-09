@@ -21,9 +21,42 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        createBalloons(99)
+        
+        currentBalloonsItem = balloonsArray[currentIndex]
+    
+        self.imageView.image = currentBalloonsItem.image
+        self.textLabel.text = "There are \(currentBalloonsItem.numberOfBalloons) balloons."
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func nextBarButtonItemPressed(sender: UIBarButtonItem) {
+        
         var randomNumber = 0
         
-        for var i = 0; i < 100; i++ {
+        do {
+        randomNumber = Int(arc4random_uniform(UInt32(100)))
+        } while randomNumber == currentIndex || balloonsArray[randomNumber].image == balloonsArray[currentIndex].image
+        
+        currentIndex = randomNumber
+        
+        currentBalloonsItem = balloonsArray[currentIndex]
+        
+        self.imageView.image = currentBalloonsItem.image
+        self.textLabel.text = "There are \(currentBalloonsItem.numberOfBalloons) balloons."
+    }
+    
+    // Helper Methods
+    
+    func createBalloons(numberOfBalloons: Int) {
+        
+        var randomNumber = 0
+        
+        for var i = 0; i < (numberOfBalloons + 1); i++ {
             
             var balloonsItem = Balloons()
             
@@ -54,7 +87,7 @@ class ViewController: UIViewController {
                 default:
                     randomImage = UIImage(named: "BerlinTVTower.jpg")
                 }
-
+                
                 balloonsItem.numberOfBalloons = i
                 balloonsItem.image = randomImage
             }
@@ -63,31 +96,6 @@ class ViewController: UIViewController {
             
         }
         
-        currentBalloonsItem = balloonsArray[currentIndex]
-    
-        self.imageView.image = currentBalloonsItem.image
-        self.textLabel.text = "There are \(currentBalloonsItem.numberOfBalloons) balloons."
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func nextBarButtonItemPressed(sender: UIBarButtonItem) {
-        
-        var randomNumber = 0
-        
-        do {
-        randomNumber = Int(arc4random_uniform(UInt32(100)))
-        } while randomNumber == currentIndex || balloonsArray[randomNumber].image == balloonsArray[currentIndex].image
-        
-        currentIndex = randomNumber
-        
-        currentBalloonsItem = balloonsArray[currentIndex]
-        
-        self.imageView.image = currentBalloonsItem.image
-        self.textLabel.text = "There are \(currentBalloonsItem.numberOfBalloons) balloons."
     }
 
 }
