@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     var currentIndex = 0
-    var currentNumber = 0
+    var randomNumber = 0
     var balloonsArray:[Balloons] = []
     var currentBalloonsItem = Balloons()
     
@@ -36,8 +36,6 @@ class ViewController: UIViewController {
 
     @IBAction func nextBarButtonItemPressed(sender: UIBarButtonItem) {
         
-        var randomNumber = 0
-        
         do {
         randomNumber = Int(arc4random_uniform(UInt32(100)))
         } while randomNumber == currentIndex || balloonsArray[randomNumber].image == balloonsArray[currentIndex].image
@@ -54,7 +52,7 @@ class ViewController: UIViewController {
     
     func createBalloons(numberOfBalloons: Int) {
         
-        var randomNumber = 0
+        var currentNumber = 0
         
         for var i = 0; i < (numberOfBalloons + 1); i++ {
             
@@ -66,9 +64,6 @@ class ViewController: UIViewController {
             }
             else {
                 
-                var nextBalloons = Balloons()
-                var randomImage = UIImage(named: "")
-                
                 do {
                     randomNumber = Int(arc4random_uniform(UInt32(4)))
                 } while randomNumber == currentNumber
@@ -77,19 +72,18 @@ class ViewController: UIViewController {
                 
                 switch randomNumber {
                 case 0:
-                    randomImage = UIImage(named: "RedBalloon1.jpg")
+                    balloonsItem.image = UIImage(named: "RedBalloon1.jpg")
                 case 1:
-                    randomImage = UIImage(named: "RedBalloon2.jpg")
+                    balloonsItem.image = UIImage(named: "RedBalloon2.jpg")
                 case 2:
-                    randomImage = UIImage(named: "RedBalloon3.jpg")
+                    balloonsItem.image = UIImage(named: "RedBalloon3.jpg")
                 case 3:
-                    randomImage = UIImage(named: "RedBalloon4.jpg")
+                    balloonsItem.image = UIImage(named: "RedBalloon4.jpg")
                 default:
-                    randomImage = UIImage(named: "BerlinTVTower.jpg")
+                    balloonsItem.image = UIImage(named: "BerlinTVTower.jpg")
                 }
                 
                 balloonsItem.numberOfBalloons = i
-                balloonsItem.image = randomImage
             }
             
             balloonsArray.append(balloonsItem)
